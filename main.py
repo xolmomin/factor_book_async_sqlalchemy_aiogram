@@ -18,10 +18,8 @@ async def on_startup(dispatcher: Dispatcher, bot: Bot):
     await bot.set_webhook(f"{conf.bot.BASE_WEBHOOK_URL}{conf.bot.WEBHOOK_PATH}", secret_token=conf.bot.WEBHOOK_SECRET)
 
 
-#     https://api.telegram.org/bot7176330061:AAHCAiWsfkEGiqRmnCQK_79tLJzdSTIYRss/setWebhook?url=https://7bba-178-218-201-17.ngrok-free.app/webhook
-
 async def on_shutdown(dispatcher: Dispatcher, bot: Bot):
-    pass
+    await bot.delete_webhook(drop_pending_updates=True)
 
 
 def main() -> None:
