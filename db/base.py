@@ -48,9 +48,9 @@ class AbstractClass:
     async def commit():
         try:
             await db.commit()
-        except Exception:
+        except Exception as e:
+            print(e)
             await db.rollback()
-            raise
 
     @classmethod
     async def create(cls, **kwargs):  # Create

@@ -17,13 +17,13 @@ class DatabaseConfig(BaseConfig):
     """Database connection variables"""
     NAME: str = os.getenv('DB_NAME')
     USER: str = os.getenv('DB_USER')
-    PASSWD: str = os.getenv('DB_PASSWORD')
+    PASS: str = os.getenv('DB_PASS')
     HOST: str = os.getenv('DB_HOST')
     PORT: str = os.getenv('DB_PORT')
 
     @property
     def db_url(self):
-        return f"postgresql+asyncpg://{self.USER}:{self.PASSWD}@{self.HOST}:{self.PORT}/{self.NAME}"
+        return f"postgresql+asyncpg://{self.USER}:{self.PASS}@{self.HOST}:{self.PORT}/{self.NAME}"
 
 
 @dataclass
@@ -50,10 +50,29 @@ class BotConfig(BaseConfig):
 
 
 @dataclass
+class RedisConfig(BaseConfig):
+    """Redis configuration"""
+    URL: str = os.getenv('REDIS_URL')
+    DB: str = os.getenv('REDIS_DB')
+    HOST: str = os.getenv('REDIS_HOST')
+    PORT: str = os.getenv('REDIS_PORT')
+
+
+@dataclass
+class WebConfig(BaseConfig):
+    """Web configuration"""
+    SECRET_KEY: str = os.getenv('SECRET_KEY')
+    USERNAME: str = os.getenv('ADMIN_USERNAME')
+    PASSWD: str = os.getenv('ADMIN_PASSWORD')
+
+
+@dataclass
 class Configuration:
     """All in one configuration's class"""
+    rd = RedisConfig()
     db = DatabaseConfig()
     bot = BotConfig()
+    web = WebConfig()
 
 
 conf = Configuration()
