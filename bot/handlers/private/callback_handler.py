@@ -1,5 +1,5 @@
 from aiogram import Router, F
-from aiogram.types import CallbackQuery, InlineKeyboardButton
+from aiogram.types import CallbackQuery, InlineKeyboardButton, URLInputFile
 from aiogram.utils.keyboard import InlineKeyboardBuilder
 
 from db import Product
@@ -23,7 +23,7 @@ async def category_callback_handler(callback: CallbackQuery) -> None:
 @callback_router.callback_query(F.data.startswith('product_'))
 async def command_start_handler(callback: CallbackQuery) -> None:
     product_id = int(callback.data.split('product_')[-1])
-
+    product = await Product.get(product_id)
     await callback.message.delete()
-    # callback.answer()
+    await callback.message.answer_photo(URLInputFile(product.photo.telegra_image_url), product.name)
     await callback.answer(f"{product_id} tanlandi", show_alert=True)
