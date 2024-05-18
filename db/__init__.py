@@ -1,4 +1,2 @@
-from db.models.user import User
-from db.models.product import Product, Category
-
+from db.models import User, Category, Product
 from db.base import db as database, CreatedModel

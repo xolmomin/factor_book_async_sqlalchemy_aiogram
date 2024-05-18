@@ -33,12 +33,16 @@ class BotConfig(BaseConfig):
     BOT_TOKEN: str = os.getenv('BOT_TOKEN')
     ADMIN_LIST: str = os.getenv('ADMIN_LIST')
 
-    WEB_SERVER_HOST: str = "127.0.0.1"
-    WEB_SERVER_PORT: int = 8080
-    MAIN_BOT_PATH: str = "/webhook/main"
-    OTHER_BOTS_PATH: str = "/webhook/bot/{bot_token}"
+    WEB_SERVER_HOST: str = os.getenv('WEB_SERVER_HOST')
+    WEB_SERVER_PORT: int = int(os.getenv('WEB_SERVER_PORT', 8080))
+    WEBHOOK_PATH = "/webhook"
+    WEBHOOK_SECRET = os.getenv('WEBHOOK_SECRET')
+    BASE_WEBHOOK_URL = os.getenv('BASE_WEBHOOK_URL')
 
-    OTHER_BOTS_URL: str = f"{BASE_URL}{OTHER_BOTS_PATH}"
+    # MAIN_BOT_PATH: str = "/webhook/main"
+    # OTHER_BOTS_PATH: str = "/webhook/bot/{bot_token}"
+    #
+    # OTHER_BOTS_URL: str = f"{BASE_URL}{OTHER_BOTS_PATH}"
 
     @property
     def get_admin_list(self):
